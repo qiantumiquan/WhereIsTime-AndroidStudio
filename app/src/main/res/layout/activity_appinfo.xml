@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/bg_gradient"
+    >
+    
+    <include layout="@layout/title_bar"/>
+    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_marginTop="@dimen/activity_appinfo_margin"
+	    android:layout_marginLeft="@dimen/activity_appinfo_margin"
+	    android:layout_marginRight="@dimen/activity_appinfo_margin"
+	    android:layout_marginBottom="@dimen/activity_appinfo_margin"
+	    android:orientation="vertical" 
+	    >
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal" 
+		    android:background="#22A5FE71"
+		    >
+			<LinearLayout
+			    android:id="@+id/layout_activityappinfo_appicon"
+			    android:layout_width="100dp"
+			    android:layout_height="100dp"
+			    android:orientation="vertical" 
+			    android:background="@color/activity_appinfo_color"
+			    >
+			</LinearLayout>
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_marginLeft="5dp"
+			    android:paddingTop="20dp"
+			    android:orientation="vertical" 
+			    >
+				<TextView 
+				    android:id="@+id/text_activityinfo_appname"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:textSize="20sp"
+				    android:text="程序名称"
+				    android:lines="1"
+				    />
+				<TextView 
+			        android:id="@+id/text_activityinfo_usetime"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:textSize="20sp"
+				    android:text="使用时间"
+				    android:lines="1"
+				    />
+				<TextView 
+			        android:id="@+id/text_activityinfo_sumtime"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:textSize="20sp"
+				    android:text="总时间"
+				    android:lines="1"
+				    />
+			</LinearLayout>
+		</LinearLayout>
+		<!-- 显示报表 -->
+	    <!-- android:layout_weight="3" -->
+		<LinearLayout
+		    android:id="@+id/layout_chart"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_marginTop="@dimen/activity_appinfo_margin_in"
+		    android:orientation="vertical" 
+		    android:background="#22A5FE71"
+		    >
+		</LinearLayout>
+		<!-- <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="8"
+		    android:layout_marginTop="@dimen/activity_appinfo_margin_in"
+		    android:orientation="vertical" 
+		    >
+		    <TextView 
+		        android:id="@+id/text_activityinfo_tip"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:textSize="20sp"
+			    android:textStyle="italic"
+			    android:textColor="#FF5E00"
+			    android:text="     打开手机，发呆了一下，向左一滑，向右一滑，时间没了。"
+			    />
+		</LinearLayout> -->
+	</LinearLayout>
+
+</LinearLayout>

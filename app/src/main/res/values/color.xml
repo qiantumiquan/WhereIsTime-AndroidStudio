@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="box_color">#88996655</color>
+    <color name="activity_appinfo_color">#99665599</color>
+    <color name="bartitle_color">#000000</color>
+    <color name="bartitle_text_color">#FFFFFF</color>
+    
+    <color name="box_text_down_color">#88DBD9D9</color>
+    <color name="box_text_up_color">#00999999</color>
+</resources>

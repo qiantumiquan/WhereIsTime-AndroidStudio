@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:state_pressed="true" android:drawable="@drawable/bg_activity_main"></item>
+    <item android:state_enabled="true" android:drawable="@drawable/bg_activity_main"></item>
+    <item android:drawable="@color/box_color"></item>
+
+</selector>

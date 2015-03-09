@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+    
+    <include layout="@layout/title_bar"/>
+    
+	<RelativeLayout
+	    android:id="@+id/dialog_except"
+	    android:layout_width="fill_parent"
+	    android:layout_height="match_parent"
+	    android:background="#88737373"
+	    >
+	    <!-- dialog -->
+	    <LinearLayout
+	        android:layout_width="200dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"
+	        android:gravity="center"
+	        android:orientation="vertical" 
+	        android:background="#3F2A2A"
+	        >
+	        <!-- qq -->
+		    <LinearLayout
+	            android:id="@+id/dialog_share_qq"
+		        android:layout_width="match_parent"
+	            android:layout_height="50dp"
+	            android:paddingLeft="10dp"
+	            android:gravity="center_vertical|left"
+	            android:background="#1B1515"
+		        >
+		        <ImageView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:src="@drawable/shareqq" />
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="5sp"
+		            android:textColor="#FFFFFF"
+		            android:textSize="20dp"
+		            android:text="QQ/空间" 
+		            />
+	        </LinearLayout>
+	        <!-- 微信 -->
+		    <LinearLayout
+	            android:id="@+id/dialog_share_weixin"
+		        android:layout_width="match_parent"
+	            android:layout_height="50dp"
+	            android:paddingLeft="10dp"
+	            android:gravity="center_vertical|left"
+	            android:background="#1B1515"
+		        >
+		        <ImageView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:src="@drawable/shareweixin" />
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="5sp"
+		            android:textColor="#FFFFFF"
+		            android:textSize="20dp"
+		            android:text="微信" 
+		            />
+	        </LinearLayout>
+	        <!-- 微博 -->
+		    <!-- <LinearLayout
+	            android:id="@+id/dialog_share_weibo"
+		        android:layout_width="match_parent"
+	            android:layout_height="50dp"
+	            android:paddingLeft="10dp"
+	            android:gravity="center_vertical|left"
+	            android:background="#1B1515"
+		        >
+		        <ImageView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:src="@drawable/shareweibo" />
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="5sp"
+		            android:textColor="#FFFFFF"
+		            android:textSize="20dp"
+		            android:text="微博" 
+		            />
+	        </LinearLayout> -->
+	    </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
