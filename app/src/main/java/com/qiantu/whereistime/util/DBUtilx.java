@@ -10,23 +10,34 @@ import com.qiantu.whereistime.model.Day;
 
 public class DBUtilx {
 	private static DbUtils instance;
-	
-	public static DbUtils getInstance(Context context) {
-		if(instance != null) {
-			return instance;
-		}
-		synchronized (DBUtilx.class) {
-			if(instance == null) {
-				instance = DbUtils.create(context, "whereistime", 2, new MyDbUpdateListener());
-				try {
-					instance.createTableIfNotExist(Day.class);
-					instance.createTableIfNotExist(AppInfo.class);
-				} catch (DbException e) {
-					e.printStackTrace();
-				}
-			}
-			return instance;
-		}
+
+    /**
+     * 在第一个Activity的时候调用此方法，new出实例。
+     * 可以多次调用。
+     */
+    public static void init(Context context) {
+        if(instance != null) return ;
+        if(context == null) return ;
+        synchronized (DBUtilx.class) {
+            if(instance == null) {
+                instance = DbUtils.create(context, "whereistime", 2, new MyDbUpdateListener());
+                try {
+                    //新建表
+                    instance.createTableIfNotExist(Day.class);
+                    instance.createTableIfNotExist(AppInfo.class);
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 调用此方法前必须先调用init方法。
+     * （建议在第一个Activity的onCreate中调用init()）
+     */
+	public static DbUtils getInstance() {
+        return instance;
 	}
 	
 	/**

@@ -9,7 +9,21 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 
+import com.qiantu.whereistime.R;
+
 public class Utilx {
+    /**
+     * 完全退出app，关闭所有的Activity和Service。
+     * 原理：每个Activity和Service都注册了“退出广播”；
+     * @param context
+     */
+    public static void exitApp(Context context) {
+        //发送广播，停止service
+        Intent intent = new Intent();
+        intent.setAction(context.getString(R.string.action_exit));
+        context.sendBroadcast(intent);
+    }
+
 	/**
 	 * 判断是否已连接网路
 	 * 需要权限：

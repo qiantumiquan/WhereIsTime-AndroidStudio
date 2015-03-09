@@ -44,7 +44,7 @@ public class BackService extends BaseService {
 		super.onCreate();
 		x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx("back service");
 
-        db = DBUtilx.getInstance(this);
+        db = DBUtilx.getInstance();
 		
 		registerReceivers();
 		
