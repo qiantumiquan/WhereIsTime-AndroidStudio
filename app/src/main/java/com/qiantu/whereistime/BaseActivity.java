@@ -24,9 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * 一个公共的Activity，包含有OrmLiteBaseActivity<DBHelper>
  * 目的是为了让每个Activity都有同一的menu
- *
  * 完全退出：这个基本activity注册了广播，收到广播则退出。然后所有的activity都继承此activity。
  */
 //public class BaseActivity extends ActionBarActivity {
@@ -37,27 +35,29 @@ public class BaseActivity extends Activity {
 	LinearLayout layout_share;
 	LinearLayout layout_signin;
 	LinearLayout layout_setting;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		initBroadcase();
-	}
-	
-	private void initBroadcase() {
-		//注册广播，用于退出程序
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(getString(R.string.action_exit));
-		mExitReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				finish();
-			}
-		};
-		this.registerReceiver(mExitReceiver, filter);
-	}
-	
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //注册广播，用于退出程序
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getString(R.string.action_exit));
+        mExitReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                finish();
+            }
+        };
+        this.registerReceiver(mExitReceiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.unregisterReceiver(mExitReceiver);
+        super.onDestroy();
+    }
+
 	/**
 	 * protected:只有同一个包下的类才能访问
 	 * 只能让子类执行此方法，因为子类才会有下面的那些id
@@ -118,13 +118,7 @@ public class BaseActivity extends Activity {
 			}
 		});
 	}
-	
-	@Override
-	protected void onDestroy() {
-		this.unregisterReceiver(mExitReceiver);
-		super.onDestroy();
-	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
