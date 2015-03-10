@@ -25,6 +25,9 @@ public class DBUtilx {
                     //新建表
                     instance.createTableIfNotExist(Day.class);
                     instance.createTableIfNotExist(AppInfo.class);
+
+                    //测试数据
+//                    TestService.getInstance().addDataTest(instance);
                 } catch (DbException e) {
                     e.printStackTrace();
                 }

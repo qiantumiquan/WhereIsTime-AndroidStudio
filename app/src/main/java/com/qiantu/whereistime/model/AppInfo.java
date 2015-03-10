@@ -15,7 +15,7 @@ public class AppInfo implements Serializable {
 	private int id;
 	@Column(column="name")
 	private String name;
-	/*使用时长*/
+	/*使用时长，单位为秒*/
 	@Column(column="useTime")
 	private double useTime;
 	/*程序包名*/

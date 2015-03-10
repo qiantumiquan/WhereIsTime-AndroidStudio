@@ -30,7 +30,7 @@ import com.qiantu.whereistime.util.DBUtilx;
 import com.qiantu.whereistime.util.StringUtil;
 import com.qiantu.whereistime.util.Utilx;
 import com.qiantu.whereistime.util.x;
-import com.qiantu.whereistime.view.RotationTransformer;
+import com.qiantu.whereistime.view.ZoomOutPageTransformer;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         //添加滑动动画
-        mViewPager.setPageTransformer(false, new RotationTransformer());
+        mViewPager.setPageTransformer(false, new ZoomOutPageTransformer());
         mViewPager.setAdapter(new MyPagerAdapter());
 
         //注册一系列的广播接收器
@@ -149,12 +149,6 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            //判断是否是启动状态（初始化第一第二页）
-            if (!isInit) {
-                initCount++;
-                if (initCount == 2) isInit = true;
-            }
-
             //获取数据
             Day day = DataService.getDay(position);
 
@@ -214,19 +208,31 @@ public class MainActivity extends BaseActivity {
                 });
             }
 
-            //添加在前面还是后面
-            if (position > currentPage) container.addView(view);
-            else container.addView(view, 0);
+            //判断是否是启动状态（初始化第一第二页）
+            if (!isInit) {
+                initCount++;
+                if (initCount == 2) isInit = true;
+                container.addView(view);
+                currentPage = 0;
+            }
+            //已经初始化了。现在是用户主动滑动状态，要判断是添加在前面还是后面
+            else {
+                if (position > currentPage) {
+                    container.addView(view);
+                    currentPage++;
+                }
+                else {
+                    container.addView(view, 0);
+                    currentPage--;
+                }
+            }
+
             return view;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx("remove" + position);
-
-            //删除前面还是后面
-            if (position > currentPage) container.removeViewAt(2);
-            else container.removeViewAt(0);
+            container.removeView((View)object);
         }
 
         @Override

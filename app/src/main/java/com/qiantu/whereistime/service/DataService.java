@@ -23,7 +23,8 @@ public class DataService {
         Day day = null;
         try {
             day = DBUtilx.getInstance().findFirst(
-                    Selector.from(Day.class).orderBy("id", false).limit(index + 1));
+                    Selector.from(Day.class).orderBy("id", true)
+                            .offset(index).limit(index + 1));
         } catch (DbException e) {
             e.printStackTrace();
         }
