@@ -11,10 +11,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +23,10 @@ import com.qiantu.whereistime.model.Day;
 import com.qiantu.whereistime.service.BackService;
 import com.qiantu.whereistime.service.DataService;
 import com.qiantu.whereistime.service.DeamonService;
-import com.qiantu.whereistime.util.AppUtil;
 import com.qiantu.whereistime.util.DBUtilx;
-import com.qiantu.whereistime.util.StringUtil;
 import com.qiantu.whereistime.util.Utilx;
 import com.qiantu.whereistime.util.x;
+import com.qiantu.whereistime.view.LinearLayoutPage;
 import com.qiantu.whereistime.view.ZoomOutPageTransformer;
 
 import java.util.List;
@@ -162,51 +159,16 @@ public class MainActivity extends BaseActivity {
                 });
             }
 
-            //获取page
-            LinearLayout view = (LinearLayout) mInflater.inflate(R.layout.view, null);
-
-            text_date = (TextView) view.findViewById(R.id.text_date);
-            text_date.setText(day.getDate());
-
-            //数据从数据库中取得，根据usertime排列
-            List<AppInfo> list = day.getAppInfos().size() > 15 ?
-                    day.getAppInfos().subList(0, 15) : day.getAppInfos();
-
-            //总的使用时间
-            double sum = 0;
-            for (AppInfo app : list) {
-                sum += app.getUseTime();
-            }
-            final double sumTime = sum;//用于传递到下一个activity
-
-            //遍历所有list
-            for (int i = 0; i < 15 && i < list.size(); i++) {
-                TextView text = (TextView) view.findViewById(mTextViewIds[i]);
-
-                final AppInfo app = list.get(i);
-
-                String str = "";
-                if (i < 7) {
-                    str = app.getName() + "\n" + AppUtil.s2m(app.getUseTime())
-                            + StringUtil.subDouble(app.getUseTime() / sum * 100) + "%";
-                } else {
-                    str = app.getName() + "\n"
-                            + StringUtil.subDouble(app.getUseTime() / sum * 100) + "%";
+            //获取view，并绑定跳转事件
+            LinearLayoutPage linearLayoutPage = new LinearLayoutPage();
+            linearLayoutPage.setOnItemClickListener(new LinearLayoutPage.OnItemClickListener() {
+                @Override
+                public void onItemClick(Intent intent) {
+                    intent.setClass(MainActivity.this, AppInfoActivity.class);
+                    startActivity(intent);
                 }
-
-                text.setText(str);
-                text.setLongClickable(true);//这个是必须的
-                text.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, AppInfoActivity.class);
-                        intent.putExtra("app", app);
-                        intent.putExtra("sumTime", sumTime);
-                        startActivity(intent);
-                    }
-                });
-            }
+            });
+            View view = linearLayoutPage.getView(mInflater, day);
 
             //判断是否是启动状态（初始化第一第二页）
             if (!isInit) {
@@ -245,27 +207,6 @@ public class MainActivity extends BaseActivity {
             return view == object;
         }
     }
-
-    /**
-     * a代表大格，b代表中格，c代表小格，d代表最小
-     */
-    private int[] mTextViewIds = new int[]{
-            R.id.text_1_a,
-            R.id.text_2_b,
-            R.id.text_3_b,
-            R.id.text_4_c,
-            R.id.text_5_c,
-            R.id.text_6_c,
-            R.id.text_7_c,
-            R.id.text_8_d,
-            R.id.text_9_d,
-            R.id.text_10_d,
-            R.id.text_11_d,
-            R.id.text_12_d,
-            R.id.text_13_d,
-            R.id.text_14_d,
-            R.id.text_15_d
-    };
 }
 
 
