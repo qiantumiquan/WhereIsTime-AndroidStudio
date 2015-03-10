@@ -13,6 +13,38 @@ import com.qiantu.whereistime.R;
 
 public class Utilx {
     /**
+     * 把以秒为单位的时间转换成以分为但闻的时间字符串
+     * @param
+     * @return
+     */
+    public static String s2m(double sTime) {
+        int m = (int) (sTime / 60);
+        int s = (int) (sTime % 60);
+        String ms = m + "分";
+        String ss = s + "秒";
+        if(m == 0) {
+            ms = "";
+        }
+        if(s == 0) {
+            ss = "";
+        }
+        return ms + ss;
+    }
+
+    /**	把一个double类型的数字转换为保留4个字符的字符串
+     * @param num
+     * @return
+     */
+    public static String subDouble(double num) {
+        String str = String.valueOf(num);
+        if(str.length() < 4) {
+            return str;
+        } else {
+            return str.substring(0, 4);
+        }
+    }
+
+    /**
      * 完全退出app，关闭所有的Activity和Service。
      * 原理：每个Activity和Service都注册了“退出广播”；
      * @param context

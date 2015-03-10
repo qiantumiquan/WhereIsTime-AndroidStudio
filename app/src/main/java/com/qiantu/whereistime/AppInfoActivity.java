@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qiantu.whereistime.model.AppInfo;
-import com.qiantu.whereistime.util.AppUtil;
+import com.qiantu.whereistime.util.Utilx;
 import com.qiantu.whereistime.util.x;
 
 import org.achartengine.ChartFactory;
@@ -47,8 +47,8 @@ public class AppInfoActivity extends BaseActivity {
 		double sumTime = this.getIntent().getDoubleExtra("sumTime", 0);
 		AppInfo app = (AppInfo) this.getIntent().getSerializableExtra("app");
 		text_appname.setText("应用名称："+app.getName());
-		text_usetime.setText("使用时间："+ AppUtil.s2m(app.getUseTime()));
-		text_sumtime.setText(" 总时间："+AppUtil.s2m(sumTime));
+		text_usetime.setText("使用时间："+ Utilx.s2m(app.getUseTime()));
+		text_sumtime.setText(" 总时间："+Utilx.s2m(sumTime));
 		text_appname.setOnClickListener(new TextOnClickListener(app.getName()));
 		
 		//设置icon

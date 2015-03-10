@@ -1,4 +1,4 @@
-package com.qiantu.whereistime.service;
+package com.qiantu.whereistime;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 
-import com.qiantu.whereistime.R;
 import com.qiantu.whereistime.util.x;
 
 /**
@@ -34,7 +33,7 @@ public class DeamonService extends BaseService implements Runnable {
 	public void onCreate() {
 		super.onCreate();
 		
-		mActManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+		mActManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		mIntent = new Intent(getString(R.string.action_deamon_service));
 		
 		initBroadcast();

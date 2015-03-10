@@ -5,6 +5,9 @@ import com.lidroid.xutils.exception.DbException;
 import com.qiantu.whereistime.model.AppInfo;
 import com.qiantu.whereistime.model.Day;
 
+/**
+ * 提供测试数据
+ */
 public class TestService {
     private static TestService instance;
 

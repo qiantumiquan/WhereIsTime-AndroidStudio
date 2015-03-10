@@ -1,4 +1,5 @@
 版本：
+    添加了一些列动画效果。
     代码地址：https://github.com/qiantumiquan/WhereIsTime-AndroidStudio
     优化了代码。
 

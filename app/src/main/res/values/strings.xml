@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- app（修改） -->
     <string name="app_name">时间都去哪了</string>
-    
+
     <!-- 广播（修改） -->
     <string name="action_exit">com.qiantu.whereistime.action_exit</string>
     <string name="action_deamon_service">com.qiantu.whereistime.action_deamon_service</string>
     <string name="action_update_ui">com.qiantu.whereistime.update_ui</string>
-    <string name="action_clean_dbinfo">com.qiantu.whereistime.clean_dbinfo</string>
-    
-    <!-- 菜单 -->
-    <string name="menu_setting">设置</string>
-    <string name="menu_feedback">反馈</string>
-    <string name="menu_exit">退出</string>
-    
+
     <!-- 其它 -->
     <string name="logoDesc">This is a logo</string>
+    <string name="title_activity_setting">设置</string>
     <string name="note">注：上图是每款软件占您手机使用时间的比例。</string>
-    
+
 </resources>

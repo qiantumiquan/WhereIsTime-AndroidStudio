@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.qiantu.whereistime"
     android:versionCode="20150309"
-    android:versionName="3.1">
+    android:versionName="3.1" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -28,35 +28,37 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppInfoActivity"></activity>
-        <activity
-            android:name=".SettingDialog"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity android:name=".AppInfoActivity" />
         <activity
             android:name=".ShareDialog"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".ReadmeActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="@string/title_activity_setting"
+            >
+        </activity>
 
         <!-- service -->
-        <service android:name=".service.BackService"></service>
-        <service android:name=".service.DeamonService"></service>
+        <service android:name=".BackService" />
+        <service android:name=".DeamonService" />
 
         <!-- QQ空间 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
-            android:noHistory="true"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -68,9 +70,8 @@
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>
-

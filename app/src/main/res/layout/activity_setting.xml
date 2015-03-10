@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#E74C3C">
+
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/icon_return"
+            android:layout_margin="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#ECF0F1"
+            android:textSize="30sp"
+            android:text="设置" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_below="@+id/title"
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/button_up"
+            android:textColor="#C0392B"
+            android:text="清除记录"
+            />
+        <Button
+            android:id="@+id/btn_app_desc"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/button_center"
+            android:textColor="#C0392B"
+            android:text="功能介绍"
+            />
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/button_down"
+            android:textColor="#C0392B"
+            android:text="完全退出"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

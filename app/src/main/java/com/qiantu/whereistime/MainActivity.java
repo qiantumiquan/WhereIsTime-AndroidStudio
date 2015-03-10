@@ -1,49 +1,27 @@
 package com.qiantu.whereistime;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lidroid.xutils.DbUtils;
-import com.lidroid.xutils.exception.DbException;
-import com.qiantu.whereistime.model.AppInfo;
 import com.qiantu.whereistime.model.Day;
-import com.qiantu.whereistime.service.BackService;
 import com.qiantu.whereistime.service.DataService;
-import com.qiantu.whereistime.service.DeamonService;
 import com.qiantu.whereistime.util.DBUtilx;
 import com.qiantu.whereistime.util.Utilx;
 import com.qiantu.whereistime.util.x;
 import com.qiantu.whereistime.view.LinearLayoutPage;
 import com.qiantu.whereistime.view.ZoomOutPageTransformer;
 
-import java.util.List;
-
 public class MainActivity extends BaseActivity {
-    private DbUtils db;
-
-    /* 一系列的广播接收器 */
-    private BroadcastReceiver mUpdateUIReceiver;//注册广播接收更新UI的命令;
-    private BroadcastReceiver clearDatabaseReceiver;//注册广播删除数据库数据
-
     private ViewPager mViewPager;
-
-    private List<TextView> list_text;
-    private TextView text_date;
-
-    private LayoutInflater mInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +29,14 @@ public class MainActivity extends BaseActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_main);
 
+        //初始化数据库
         DBUtilx.init(this);
-        db = DBUtilx.getInstance();
 
         //初始化组件
-        mInflater = LayoutInflater.from(this);
-
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         //添加滑动动画
         mViewPager.setPageTransformer(false, new ZoomOutPageTransformer());
         mViewPager.setAdapter(new MyPagerAdapter());
-
-        //注册一系列的广播接收器
-        initBroadcast();
 
         //启动后台线程
         startService(new Intent(this, DeamonService.class));
@@ -73,59 +46,34 @@ public class MainActivity extends BaseActivity {
         if (Utilx.isFirstOpenApp(this)) {
             startActivity(new Intent(this, ReadmeActivity.class));
         }
+
+        ///////////////////////////////////////////////////////////
+//        startActivity(new Intent(this, SettingActivity.class));
+        ///////////////////////////////////////////////////////////
     }
 
-    /**
-     * 注册一系列的广播接收器
-     */
-    public void initBroadcast() {
-        //注册广播接收更新UI的命令
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(getString(R.string.action_update_ui));
-        mUpdateUIReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                //注册广播接收更新UI的命令
-//                updateUI();
-            }
-        };
-        this.registerReceiver(mUpdateUIReceiver, filter);
-
-        //注册广播接收清除数据库信息的命令
-        filter = new IntentFilter();
-        filter.addAction(getString(R.string.action_clean_dbinfo));
-        clearDatabaseReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                //注册广播接收清除数据库信息的命令
-                clearDatabaseInfo();
-            }
-        };
-        this.registerReceiver(clearDatabaseReceiver, filter);
-    }
-
-    public void unRegisterReceivers() {
-        this.unregisterReceiver(mUpdateUIReceiver);
-        this.unregisterReceiver(clearDatabaseReceiver);
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //点击菜单键打开设置activity
+        if(keyCode == KeyEvent.KEYCODE_MENU) {
+            startActivity(new Intent(this, SettingActivity.class));
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
     protected void onDestroy() {
-        unRegisterReceivers();
         x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx("main_activity_exit");
         super.onDestroy();
     }
 
     /**
-     * 清楚数据库已经保存的信息
+     * 菜单的点击事件，绑定在了xml里面
+     * @param v
      */
-    public void clearDatabaseInfo() {
-        try {
-            db.deleteAll(AppInfo.class);
-//            this.updateUI();
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+    public void onMenuButtonClick(View v) {
+        startActivity(new Intent(this, SettingActivity.class));
     }
 
     /**
@@ -160,15 +108,8 @@ public class MainActivity extends BaseActivity {
             }
 
             //获取view，并绑定跳转事件
-            LinearLayoutPage linearLayoutPage = new LinearLayoutPage();
-            linearLayoutPage.setOnItemClickListener(new LinearLayoutPage.OnItemClickListener() {
-                @Override
-                public void onItemClick(Intent intent) {
-                    intent.setClass(MainActivity.this, AppInfoActivity.class);
-                    startActivity(intent);
-                }
-            });
-            View view = linearLayoutPage.getView(mInflater, day);
+            LinearLayoutPage page = new LinearLayoutPage();
+            View view = page.getView(MainActivity.this, day);
 
             //判断是否是启动状态（初始化第一第二页）
             if (!isInit) {

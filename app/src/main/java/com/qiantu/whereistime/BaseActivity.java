@@ -6,12 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.qiantu.whereistime.util.Utilx;
 
 /**
  * 这个基本activity注册了广播，收到广播则退出。
@@ -19,14 +13,8 @@ import com.qiantu.whereistime.util.Utilx;
  *
  * 原理：每个Activity和Service都注册了“退出广播”；
  */
-//public class BaseActivity extends ActionBarActivity {
 public class BaseActivity extends Activity {
     private BroadcastReceiver mExitReceiver;
-
-    TextView text_title;
-    LinearLayout layout_share;
-    LinearLayout layout_signin;
-    LinearLayout layout_setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,30 +87,6 @@ public class BaseActivity extends Activity {
 //                startActivity(intent);
 //            }
 //        });
-//
-//        //设置
-//        layout_setting.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View arg0) {
-//                Intent intent = new Intent();
-//                intent.setClass(BaseActivity.this, SettingDialog.class);
-//                startActivity(intent);
-//            }
-//        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_exit) {
-            Utilx.exitApp(this);
-        }
-        return true;
     }
 }
 

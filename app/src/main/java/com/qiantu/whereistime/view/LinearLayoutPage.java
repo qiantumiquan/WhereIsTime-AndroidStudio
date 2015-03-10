@@ -1,16 +1,17 @@
 package com.qiantu.whereistime.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.qiantu.whereistime.AppInfoActivity;
 import com.qiantu.whereistime.R;
 import com.qiantu.whereistime.model.AppInfo;
 import com.qiantu.whereistime.model.Day;
-import com.qiantu.whereistime.util.AppUtil;
-import com.qiantu.whereistime.util.StringUtil;
+import com.qiantu.whereistime.util.Utilx;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ import java.util.List;
  * 第一种布局。
  * 线性布局。
  */
-public class LinearLayoutPage {
-    private OnItemClickListener mOnItemClickListener;
+public class LinearLayoutPage implements View.OnClickListener {
 
-    public View getView(LayoutInflater inflater, Day day) {
+    private OnButtonClickListener mOnButtonClickListener;
+
+    public View getView(final Context context, Day day) {
         //获取page
-        LinearLayout view = (LinearLayout) inflater.inflate(R.layout.view, null);
+        RelativeLayout view = (RelativeLayout) LayoutInflater.from(context)
+                .inflate(R.layout.view_linearlayout_page, null);
 
         //日期
         TextView textDate = (TextView) view.findViewById(R.id.text_date);
@@ -53,11 +56,11 @@ public class LinearLayoutPage {
 
             String str = "";
             if (i < 7) {
-                str = app.getName() + "\n" + AppUtil.s2m(app.getUseTime())
-                        + StringUtil.subDouble(app.getUseTime() / sum * 100) + "%";
+                str = app.getName() + "\n" + Utilx.s2m(app.getUseTime())
+                        + Utilx.subDouble(app.getUseTime() / sum * 100) + "%";
             } else {
                 str = app.getName() + "\n"
-                        + StringUtil.subDouble(app.getUseTime() / sum * 100) + "%";
+                        + Utilx.subDouble(app.getUseTime() / sum * 100) + "%";
             }
 
             text.setText(str);
@@ -68,9 +71,8 @@ public class LinearLayoutPage {
                     Intent intent = new Intent();
                     intent.putExtra("app", app);
                     intent.putExtra("sumTime", sumTime);
-                    if(mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(intent);
-                    }
+                    intent.setClass(context, AppInfoActivity.class);
+                    context.startActivity(intent);
                 }
             });
         }
@@ -78,18 +80,23 @@ public class LinearLayoutPage {
         return view;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
+    public void setOnButtonClickListener(OnButtonClickListener listener) {
+        mOnButtonClickListener = listener;
     }
 
-    public interface OnItemClickListener {
-        /**
-         * 点击item事件
-         * @param intent intent未绑定Activity，只是绑定一些数据。
-         *               intent.setClass之后才可以startActivity。
-         *               应该跳转到AppInfoActivity.class
-         */
-        public void onItemClick(Intent intent);
+    @Override
+    public void onClick(View v) {
+        if(mOnButtonClickListener == null) return ;
+
+        switch (v.getId()) {
+            case R.id.btn_menu:
+                mOnButtonClickListener.onMenuButtonClick(v);
+                break;
+        }
+    }
+
+    public interface OnButtonClickListener {
+        public void onMenuButtonClick(View view);
     }
 
     /**

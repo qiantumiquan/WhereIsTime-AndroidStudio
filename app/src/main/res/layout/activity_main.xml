@@ -7,4 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- 浮动的按钮 -->
+    <ImageButton
+        android:id="@+id/btn_menu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/icon_menu"
+        android:onClick="onMenuButtonClick"
+        />
+
 </RelativeLayout>

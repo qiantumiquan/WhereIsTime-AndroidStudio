@@ -12,7 +12,6 @@ public class DataService {
 
     /**
      * 获取某一天的数据。
-     *
      * @param index 以今天为0，昨天为1，前天为2，以此类推。
      * @return
      */

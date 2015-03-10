@@ -1,4 +1,4 @@
-package com.qiantu.whereistime.service;
+package com.qiantu.whereistime;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -13,7 +13,6 @@ import android.os.IBinder;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.exception.DbException;
-import com.qiantu.whereistime.R;
 import com.qiantu.whereistime.model.AppInfo;
 import com.qiantu.whereistime.model.Day;
 import com.qiantu.whereistime.util.DBUtilx;

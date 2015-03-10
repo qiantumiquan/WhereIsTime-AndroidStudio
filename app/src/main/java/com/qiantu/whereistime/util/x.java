@@ -1,11 +1,16 @@
 package com.qiantu.whereistime.util;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class x {
 	//基本类型
+	public static void xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx(Context context, String msg) {
+		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	}
 	public static void xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx(String msg) {
 		Log.e("mq", "xxxxx  "+msg);
 	}
