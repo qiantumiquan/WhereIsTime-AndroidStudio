@@ -37,57 +37,6 @@ public class BaseActivity extends Activity {
         this.unregisterReceiver(mExitReceiver);
         super.onDestroy();
     }
-
-    /**
-     * protected:只有同一个包下的类才能访问
-     * 只能让子类执行此方法，因为子类才会有下面的那些id
-     */
-    protected void setTitleBar() {
-//        text_title = (TextView) this.findViewById(R.id.text_title);
-//        layout_share = (LinearLayout) this.findViewById(R.id.layout_share);
-//        layout_setting = (LinearLayout) this.findViewById(R.id.layout_setting);
-//
-//        //分享
-//        layout_share.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View arg0) {
-//                //获取bitmap格式图片，也就是截屏
-//                View view = getWindow().getDecorView();
-//                view.setDrawingCacheEnabled(true);
-//                view.buildDrawingCache();
-//                Bitmap bitmap = view.getDrawingCache();
-//
-//                //生成图片名
-//                Date date = new Date();
-//                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd=HH-mm-ss", Locale.US);
-//                String imageName = format.format(date) + ".png";
-//
-//                //获取图片存储路径
-//                File dir = Environment.getExternalStorageDirectory();//获取跟目录
-//                File file = new File(dir, imageName);
-//                FileOutputStream fos = null;
-//                try {
-//                    file.createNewFile();
-//                    fos = new FileOutputStream(file);
-//
-//                    //存储图片
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
-//
-//                    fos.flush();
-//                    fos.close();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Intent intent = new Intent();
-//                intent.putExtra("imagePath", file.getPath());
-//                intent.setClass(BaseActivity.this, ShareDialog.class);
-//                startActivity(intent);
-//            }
-//        });
-    }
 }
 
 

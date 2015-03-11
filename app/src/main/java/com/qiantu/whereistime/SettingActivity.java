@@ -35,6 +35,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mBtnExit.setOnClickListener(this);
     }
 
+    ///////////////////////////////////////////////////////////////
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(keyCode == KeyEvent.KEYCODE_MENU) {
+//        }
+//        return true;
+//    }
+    ///////////////////////////////////////////////////////////////
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

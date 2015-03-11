@@ -10,8 +10,8 @@
 
         <Button
             android:id="@+id/btn_return"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/icon_return"
             android:layout_margin="8dp" />
 

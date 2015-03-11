@@ -28,7 +28,7 @@ public class AppInfoActivity extends BaseActivity {
 	private TextView text_sumtime;
 	private LinearLayout layout_chart;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -40,8 +40,6 @@ public class AppInfoActivity extends BaseActivity {
 		text_usetime = (TextView) this.findViewById(R.id.text_activityinfo_usetime);
 		text_sumtime = (TextView) this.findViewById(R.id.text_activityinfo_sumtime);
 		layout_chart = (LinearLayout) this.findViewById(R.id.layout_chart);
-		
-		super.setTitleBar();
 		
 		//赋值
 		double sumTime = this.getIntent().getDoubleExtra("sumTime", 0);
@@ -55,7 +53,7 @@ public class AppInfoActivity extends BaseActivity {
 		String pkgName = app.getPkgName();
 		try {
 			Drawable icon = this.getPackageManager().getApplicationIcon(pkgName);
-			layout_appicon.setBackground(icon);
+            layout_appicon.setBackground(icon);
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}

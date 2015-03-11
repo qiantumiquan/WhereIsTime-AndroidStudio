@@ -8,8 +8,8 @@ android {
         applicationId "com.qiantu.whereistime"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 150312
+        versionName "3.5"
     }
     buildTypes {
         release {

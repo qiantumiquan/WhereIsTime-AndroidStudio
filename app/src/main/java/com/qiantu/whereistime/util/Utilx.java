@@ -1,17 +1,78 @@
 package com.qiantu.whereistime.util;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.provider.Settings;
+import android.view.View;
+import android.view.animation.Animation;
 
 import com.qiantu.whereistime.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Utilx {
+    /**
+     * 放大、透明》缩小、不透明
+     */
+    public static void animatorButtonClick(View v) {
+        ObjectAnimator anim1 = ObjectAnimator.ofFloat(v, View.SCALE_X, 1, 2);
+        anim1.setRepeatMode(Animation.REVERSE);
+        anim1.setRepeatCount(1);
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(v, View.SCALE_Y, 1, 2);
+        anim2.setRepeatMode(Animation.REVERSE);
+        anim2.setRepeatCount(1);
+        ObjectAnimator anim3 = ObjectAnimator.ofFloat(v, View.ALPHA, 1, 0);
+        anim3.setRepeatMode(Animation.REVERSE);
+        anim3.setRepeatCount(1);
+
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(anim1, anim2, anim3);
+        set.setDuration(300).start();
+    }
+
+    /**
+     * 保存图片为PNG
+     * @param fileToWrite 生成的图片
+     */
+    public static boolean savePNG(Bitmap bitmap, File fileToWrite) {
+        try {
+            FileOutputStream out = new FileOutputStream(fileToWrite);
+            if (bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+                out.flush();
+                out.close();
+            }
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 分享图片
+     */
+    public static void shareImage(Context context, File image) {
+        Uri uri = Uri.fromFile(image);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType("image/jpeg");
+        context.startActivity(Intent.createChooser(intent, "分享"));
+    }
+
     /**
      * 把以秒为单位的时间转换成以分为但闻的时间字符串
      * @param
@@ -98,6 +159,8 @@ public class Utilx {
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
+
+        x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx(versionCode);
 		
 		String valName = "isFirstOpenApp_" + versionCode;//后面跟着版本号
 		SharedPreferences sp = act.getSharedPreferences("isFirstOpenApp", Activity.MODE_PRIVATE);    

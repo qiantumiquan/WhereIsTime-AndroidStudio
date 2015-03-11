@@ -2,6 +2,7 @@ package com.qiantu.whereistime.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -28,18 +29,17 @@ public class LinearLayoutPage implements View.OnClickListener {
         RelativeLayout view = (RelativeLayout) LayoutInflater.from(context)
                 .inflate(R.layout.view_linearlayout_page, null);
 
-        //日期
-        TextView textDate = (TextView) view.findViewById(R.id.text_date);
-        textDate.setText(day.getDate());
+        //如果没有数据，则返回view
+        if(day == null || day.getAppInfos().size() == 0) return view;
 
         //数据从数据库中取得，根据usertime排列
         List<AppInfo> list = day.getAppInfos().size() > 15 ?
                 day.getAppInfos().subList(0, 15) : day.getAppInfos();
 
-        //如果没有数据，则返回view
-        if(list.size() == 0) {
-            return view;
-        }
+        //如果有数据，则设置数据
+        //日期
+        TextView textDate = (TextView) view.findViewById(R.id.text_date);
+        textDate.setText(day.getDate());
 
         //总的使用时间
         double sum = 0;
@@ -48,7 +48,7 @@ public class LinearLayoutPage implements View.OnClickListener {
         }
         final double sumTime = sum;//用于传递到下一个activity
 
-        //遍历所有list
+        //遍历所有list，设置文字
         for (int i = 0; i < 15 && i < list.size(); i++) {
             TextView text = (TextView) view.findViewById(mTextViewIds[i]);
 
@@ -63,6 +63,7 @@ public class LinearLayoutPage implements View.OnClickListener {
                         + Utilx.subDouble(app.getUseTime() / sum * 100) + "%";
             }
 
+            text.setTextColor(Color.rgb(0xEC, 0xF0, 0xF1));
             text.setText(str);
             text.setLongClickable(true);//这个是必须的
             text.setOnClickListener(new View.OnClickListener() {

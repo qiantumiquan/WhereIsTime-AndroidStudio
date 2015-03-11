@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000"
+    >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -12,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:text="立即开启"
+        android:textColor="#ECF0F1"
+        android:textSize="25sp"
+        android:text="走起"
         android:background="#669966"
         />
 </RelativeLayout>

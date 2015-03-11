@@ -1,16 +1,15 @@
 package com.qiantu.whereistime;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.qiantu.whereistime.model.Day;
 import com.qiantu.whereistime.service.DataService;
@@ -20,8 +19,12 @@ import com.qiantu.whereistime.util.x;
 import com.qiantu.whereistime.view.LinearLayoutPage;
 import com.qiantu.whereistime.view.ZoomOutPageTransformer;
 
+import java.io.File;
+import java.util.Date;
+
 public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
+    private MyPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +39,12 @@ public class MainActivity extends BaseActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         //添加滑动动画
         mViewPager.setPageTransformer(false, new ZoomOutPageTransformer());
-        mViewPager.setAdapter(new MyPagerAdapter());
+        mPagerAdapter = new MyPagerAdapter();
+        mViewPager.setAdapter(mPagerAdapter);
 
         //启动后台线程
         startService(new Intent(this, DeamonService.class));
         startService(new Intent(this, BackService.class));
-
-        // 判断是不是第一次打开
-        if (Utilx.isFirstOpenApp(this)) {
-            startActivity(new Intent(this, ReadmeActivity.class));
-        }
 
         ///////////////////////////////////////////////////////////
 //        startActivity(new Intent(this, SettingActivity.class));
@@ -53,13 +52,10 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //点击菜单键打开设置activity
-        if(keyCode == KeyEvent.KEYCODE_MENU) {
-            startActivity(new Intent(this, SettingActivity.class));
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    protected void onResume() {
+        //在显示的时候刷新数据
+        mPagerAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 
     @Override
@@ -68,12 +64,62 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //点击菜单键打开设置activity
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            startActivity(new Intent(this, SettingActivity.class));
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 截图。如果传入的v == null，则截全屏
+     */
+    private Bitmap getBitmap(View v) {
+        if (v == null) {
+            v = getWindow().getDecorView();
+        }
+        v.setDrawingCacheEnabled(true);
+        v.buildDrawingCache();
+        return v.getDrawingCache();
+    }
+
     /**
      * 菜单的点击事件，绑定在了xml里面
-     * @param v
      */
     public void onMenuButtonClick(View v) {
+        Utilx.animatorButtonClick(v);//动画
         startActivity(new Intent(this, SettingActivity.class));
+    }
+
+    /**
+     * 分享的点击事件，绑定在了xml里面
+     */
+    public void onShareButtonClick(View v) {
+        Utilx.animatorButtonClick(v);//动画
+
+        Bitmap bitmap = getBitmap(mViewPager);
+
+        //生成图片名
+        String fileName = "" + new Date().getTime() + ".png";
+
+        //获取图片存储路径
+        File dir = Environment.getExternalStorageDirectory();
+        File file = new File(dir, fileName);
+        boolean success = Utilx.savePNG(bitmap, file);
+        bitmap.recycle();
+
+        if (success) {
+            Utilx.shareImage(this, file);
+        }
+
+        //删除图片
+//        File file = new File(imagePath);
+//        if(file.exists()) {
+//            file.delete();
+//        }
     }
 
     /**
@@ -89,7 +135,8 @@ public class MainActivity extends BaseActivity {
         private int initCount;
 
         public MyPagerAdapter() {
-            pageCount = (int)DataService.getDaysCount();
+            pageCount = (int) DataService.getDaysCount();
+            pageCount = pageCount == 0 ? 1 : pageCount;
         }
 
         @Override
@@ -97,15 +144,7 @@ public class MainActivity extends BaseActivity {
             //获取数据
             Day day = DataService.getDay(position);
 
-            //还没有数据
-            if (day == null) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(MainActivity.this, "尽情使用吧亲~", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
+            x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx("init   ");
 
             //获取view，并绑定跳转事件
             LinearLayoutPage page = new LinearLayoutPage();
@@ -123,8 +162,7 @@ public class MainActivity extends BaseActivity {
                 if (position > currentPage) {
                     container.addView(view);
                     currentPage++;
-                }
-                else {
+                } else {
                     container.addView(view, 0);
                     currentPage--;
                 }
@@ -135,7 +173,15 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View)object);
+            container.removeView((View) object);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            // 返回 POSITION_NONE 是为了调用notifyDataSetChange的时候能够刷新界面。
+            if(pageCount > 0) return POSITION_NONE;
+
+            return super.getItemPosition(object);
         }
 
         @Override

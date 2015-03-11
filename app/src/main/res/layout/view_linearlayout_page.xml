@@ -11,7 +11,7 @@
         android:paddingRight="@dimen/box_padding_left_and_right"
         android:paddingBottom="@dimen/box_padding_top_bottom"
         android:orientation="vertical"
-        android:background="@drawable/bg_gradient">
+        >
         <!-- 日期 -->
         <LinearLayout
             android:layout_width="fill_parent"
@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textColor="#ECF0F1"
                 android:textSize="15sp" />
         </LinearLayout>
 
